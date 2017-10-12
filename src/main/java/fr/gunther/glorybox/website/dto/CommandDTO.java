@@ -1,7 +1,5 @@
 package fr.gunther.glorybox.website.dto;
 
-import javax.persistence.*;
-
 public class CommandDTO {
 
     private Long id;
