@@ -125,16 +125,22 @@
                     <div class="col-md-6">
                         <div th:text="${datas.description}">...</div>
                     </div>
-                    <div class="col-md-6">
-                        <textarea name="description"></textarea>
+                    <div class="col-md-3">
+                        <textarea name="description" id="description"></textarea>
+                    </div>
+                    <div class="col-m-3">
+                        <button type="button" class="btn btn-primary btn-sm">Modifier</button>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div th:text="${datas.price}">...</div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                         <input type="number"/>
+                    </div>
+                    <div class="col-m-3">
+                        <button type="button" class="btn btn-primary btn-sm">Modifier</button>
                     </div>
                 </div>
             </div>
@@ -153,5 +159,32 @@
     <script type="text/javascript" th:src="@{/js/masonry/masonry.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/mixitup/jquery.mixitup.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/masonry/masonry.pkgd.min.js}"></script>
+
+    <script>
+        function searchAjax() {
+            var data = {}
+            data["query"] = $("#description").val();
+
+            $.ajax({
+                type : "POST",
+                contentType : "application/json",
+                url : "localhost:8080/update/description",
+                data : JSON.stringify(data),
+                dataType : 'json',
+                timeout : 100000,
+                success : function(data) {
+                    console.log("SUCCESS: ", data);
+                    display(data);
+                },
+                error : function(e) {
+                    console.log("ERROR: ", e);
+                    display(e);
+                },
+                done : function(e) {
+                    console.log("DONE");
+                }
+            });
+        }
+    </script>
 </body>
 </html>
