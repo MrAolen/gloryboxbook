@@ -6,6 +6,8 @@ public class AdminDTO {
     private List<CommandDTO> archiveCommands;
     private List<CommandDTO> validateCommands;
     private List<CommandDTO> pendingCommands;
+    private String description;
+    private Float price;
 
     public List<CommandDTO> getArchiveCommands() {
         return archiveCommands;
@@ -29,5 +31,21 @@ public class AdminDTO {
 
     public void setPendingCommands(List<CommandDTO> pendingCommands) {
         this.pendingCommands = pendingCommands;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
     }
 }

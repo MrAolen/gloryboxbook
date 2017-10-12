@@ -1,9 +1,6 @@
 package fr.gunther.glorybox.website.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Table
@@ -11,6 +8,8 @@ import java.util.Date;
 public class Box {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="id")
     private Long id;
 
     @Column(name="description")

@@ -121,8 +121,22 @@
         <div class="panel panel-default">
             <div class="panel-heading">Données divers</div>
             <div class="panel-body">
-                Description
-                Prix de la box
+                <div class="row">
+                    <div class="col-md-6">
+                        <div th:text="${datas.description}">...</div>
+                    </div>
+                    <div class="col-md-6">
+                        <textarea name="description"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div th:text="${datas.price}">...</div>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="number"/>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
