@@ -2,6 +2,7 @@ package fr.gunther.glorybox.website.controller;
 
 import fr.gunther.glorybox.website.dto.AdminDTO;
 import fr.gunther.glorybox.website.entity.User;
+import fr.gunther.glorybox.website.service.AdminService;
 import fr.gunther.glorybox.website.service.CommandService;
 import fr.gunther.glorybox.website.service.SecurityService;
 import fr.gunther.glorybox.website.service.UserService;
@@ -24,7 +25,7 @@ public class AdminController {
     private SecurityService securityService;
 
     @Autowired
-    private CommandService commandService;
+    private AdminService adminService;
 
     @GetMapping("/login-admin")
     public ModelAndView displayLoginAdminPage(Model model) {
@@ -33,8 +34,7 @@ public class AdminController {
 
     @GetMapping("/admin")
     public ModelAndView displayAdminPage() {
-        AdminDTO adminDatas = new AdminDTO();
-        adminDatas.setCommandsCurrent(commandService.findAllCurrentCommand());
+        AdminDTO adminDatas = adminService.getAdminDatas();
 
         return new ModelAndView("admin","datas",adminDatas);
     }

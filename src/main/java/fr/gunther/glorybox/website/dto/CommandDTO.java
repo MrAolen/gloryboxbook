@@ -1,5 +1,7 @@
 package fr.gunther.glorybox.website.dto;
 
+import fr.gunther.glorybox.website.entity.Command;
+
 public class CommandDTO {
 
     private Long id;
@@ -7,6 +9,7 @@ public class CommandDTO {
     private String name;
     private String forname;
     private AddressDTO address;
+    private Command.Status status;
 
     public Long getId() {
         return id;
@@ -38,6 +41,14 @@ public class CommandDTO {
 
     public void setForname(String forname) {
         this.forname = forname;
+    }
+
+    public Command.Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Command.Status status) {
+        this.status = status;
     }
 
     public AddressDTO getAddress() {

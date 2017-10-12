@@ -9,5 +9,9 @@ public interface CommandService {
 
     boolean saveCommand(FormCommandDTO form);
 
-    List<CommandDTO> findAllCurrentCommand();
+    List<CommandDTO> findAllPendingCommand();
+
+    List<CommandDTO> findAllOldCommand();
+
+    List<CommandDTO> findAllValidateCommand();
 }

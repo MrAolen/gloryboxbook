@@ -21,6 +21,10 @@ public class Command {
     @Column(name="forname")
     private String forname;
 
+    @Column(name="status")
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_address")
     private Address address;
@@ -49,6 +53,14 @@ public class Command {
         this.name = name;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     public String getForname() {
         return forname;
     }
@@ -72,7 +84,12 @@ public class Command {
         command.setName(this.name);
         command.setAddress(this.address.toDto());
         command.setId(this.id);
+        command.setStatus(this.status);
         return command;
+    }
+
+    public enum Status {
+        PENDING, VALIDATE, ARCHIVED
     }
 }
 

@@ -10,6 +10,7 @@ import fr.gunther.glorybox.website.service.CommandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,7 +42,17 @@ public class CommandServiceImpl implements CommandService {
     }
 
     @Override
-    public List<CommandDTO> findAllCurrentCommand() {
-        return commandRepository.findAll().stream().map(x -> x.toDto()).collect(Collectors.toList());
+    public List<CommandDTO> findAllPendingCommand() {
+        return commandRepository.findByStatus(Command.Status.PENDING).stream().map(x -> x.toDto()).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CommandDTO> findAllOldCommand() {
+        return commandRepository.findByStatus(Command.Status.ARCHIVED).stream().map(x -> x.toDto()).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CommandDTO> findAllValidateCommand() {
+        return commandRepository.findByStatus(Command.Status.VALIDATE).stream().map(x -> x.toDto()).collect(Collectors.toList());
     }
 }
