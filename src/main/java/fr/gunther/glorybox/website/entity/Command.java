@@ -1,11 +1,15 @@
 package fr.gunther.glorybox.website.entity;
 
+import fr.gunther.glorybox.website.dto.CommandDTO;
+
 import javax.persistence.*;
 
 @Table
 @Entity(name="command")
 public class Command {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="id")
     private Long id;
 
     @Column(name="email")
@@ -18,12 +22,8 @@ public class Command {
     private String forname;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_delivery_address")
-    private Address delivryAddress;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_bill_address")
-    private Address billAddress;
+    @JoinColumn(name = "id_address")
+    private Address address;
 
     public Long getId() {
         return id;
@@ -57,20 +57,22 @@ public class Command {
         this.forname = forname;
     }
 
-    public Address getDelivryAddress() {
-        return delivryAddress;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setDelivryAddress(Address delivryAddress) {
-        this.delivryAddress = delivryAddress;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
-    public Address getBillAddress() {
-        return billAddress;
-    }
-
-    public void setBillAddress(Address billAddress) {
-        this.billAddress = billAddress;
+    public CommandDTO toDto() {
+        CommandDTO command = new CommandDTO();
+        command.setEmail(this.email);
+        command.setForname(this.forname);
+        command.setName(this.name);
+        command.setAddress(this.address.toDto());
+        command.setId(this.id);
+        return command;
     }
 }
 

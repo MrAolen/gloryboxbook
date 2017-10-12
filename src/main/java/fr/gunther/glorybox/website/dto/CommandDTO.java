@@ -8,8 +8,7 @@ public class CommandDTO {
     private String email;
     private String name;
     private String forname;
-    private AddressDTO delivryAddress;
-    private AddressDTO billAddress;
+    private AddressDTO address;
 
     public Long getId() {
         return id;
@@ -43,20 +42,12 @@ public class CommandDTO {
         this.forname = forname;
     }
 
-    public AddressDTO getDelivryAddress() {
-        return delivryAddress;
+    public AddressDTO getAddress() {
+        return address;
     }
 
-    public void setDelivryAddress(AddressDTO delivryAddress) {
-        this.delivryAddress = delivryAddress;
-    }
-
-    public AddressDTO getBillAddress() {
-        return billAddress;
-    }
-
-    public void setBillAddress(AddressDTO billAddress) {
-        this.billAddress = billAddress;
+    public void setAddress(AddressDTO address) {
+        this.address = address;
     }
 }
 

@@ -1,15 +1,16 @@
 package fr.gunther.glorybox.website.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import fr.gunther.glorybox.website.dto.AddressDTO;
+
+import javax.persistence.*;
 
 @Table
 @Entity(name="address")
 public class Address {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="id")
     private Long id;
 
     @Column(name="address")
@@ -20,6 +21,9 @@ public class Address {
 
     @Column(name="country")
     private String country;
+
+    @Column(name="postal")
+    private String postal;
 
     public Long getId() {
         return id;
@@ -51,5 +55,22 @@ public class Address {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public String getPostal() {
+        return postal;
+    }
+
+    public void setPostal(String postal) {
+        this.postal = postal;
+    }
+
+    public AddressDTO toDto() {
+        AddressDTO address = new AddressDTO();
+        address.setAddress(this.address);
+        address.setCity(this.city);
+        address.setCountry(this.country);
+        address.setPostal(this.postal);
+        return address;
     }
 }

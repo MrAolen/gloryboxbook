@@ -6,6 +6,7 @@ public class AddressDTO {
     private String address;
     private String city;
     private String country;
+    private String postal;
 
     public Long getId() {
         return id;
@@ -37,5 +38,13 @@ public class AddressDTO {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public String getPostal() {
+        return postal;
+    }
+
+    public void setPostal(String postal) {
+        this.postal = postal;
     }
 }

@@ -38,22 +38,11 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th>1</th>
-                                    <th>Gunther</th>
-                                    <th>Nicolas</th>
-                                    <th>gunthernic@eisti.eu</th>
-                                    <th>
-                                        <button type="button" class="btn btn-primary btn-sm">Détail</button>
-                                        <button type="button" class="btn btn-danger btn-sm">Supprimer</button>
-                                        <button type="button" class="btn btn-success btn-sm">Archiver</button>
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <th>2</th>
-                                    <th>Noret</th>
-                                    <th>Sébastien</th>
-                                    <th>noretsebas@eisti.eu</th>
+                                <tr th:each="command : ${datas.commandsCurrent}">
+                                    <th th:text="${command.id}">...</th>
+                                    <th th:text="${command.name}">...</th>
+                                    <th th:text="${command.forname}">...</th>
+                                    <th th:text="${command.email}">...</th>
                                     <th>
                                         <button type="button" class="btn btn-primary btn-sm">Détail</button>
                                         <button type="button" class="btn btn-danger btn-sm">Supprimer</button>

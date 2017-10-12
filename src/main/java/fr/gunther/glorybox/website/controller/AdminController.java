@@ -1,6 +1,8 @@
 package fr.gunther.glorybox.website.controller;
 
+import fr.gunther.glorybox.website.dto.AdminDTO;
 import fr.gunther.glorybox.website.entity.User;
+import fr.gunther.glorybox.website.service.CommandService;
 import fr.gunther.glorybox.website.service.SecurityService;
 import fr.gunther.glorybox.website.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class AdminController {
     @Autowired
     private SecurityService securityService;
 
+    @Autowired
+    private CommandService commandService;
+
     @GetMapping("/login-admin")
     public ModelAndView displayLoginAdminPage(Model model) {
         return new ModelAndView("login-admin","userForm",new User());
@@ -28,7 +33,10 @@ public class AdminController {
 
     @GetMapping("/admin")
     public ModelAndView displayAdminPage() {
-        return new ModelAndView("admin");
+        AdminDTO adminDatas = new AdminDTO();
+        adminDatas.setCommandsCurrent(commandService.findAllCurrentCommand());
+
+        return new ModelAndView("admin","datas",adminDatas);
     }
 
     @GetMapping("/admin/detail/{idcommand}")

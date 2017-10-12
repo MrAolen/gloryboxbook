@@ -850,7 +850,71 @@
 					</div> <!-- End of messsage contant-->
 				</div>
 			</div>
-		</section>	
+		</section>
+
+	<section id="command" class="contact">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 col-sm-12">
+					<div class="head_title text-center wow zoomIn" data-wow-duration="0.5s">
+						<p>Prendre une commande</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="messsage_contant">
+					<div class="col-md-3"></div>
+					<div class="col-md-6 col-sm-7">
+						<div class="single_message_left wow fadeIn" data-wow-duration="1s">
+							<form method="POST" th:action="@{/command}" th:object="${commandForm}">
+								<!--<div class="col-lg-8 col-md-8 col-sm-10 col-lg-offset-2 col-md-offset-2 col-sm-offset-1">-->
+								<div class="row">
+									<div class="form-group col-md-6">
+										<input type="text" th:field="*{name}" class="form-control" name="name" placeholder="Nom" required=""/>
+									</div>
+									<div class="form-group col-md-6">
+										<input type="text" th:field="*{forname}" class="form-control" name="forname" placeholder="Prénom" required=""/>
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group">
+										<input type="email" th:field="*{email}" class="form-control" name="email" placeholder="Email" required=""/>
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group">
+										<input type="text" th:field="*{address}" class="form-control" name="address" placeholder="Adresse" required=""/>
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group">
+										<input type="text" th:field="*{country}" class="form-control" name="country" placeholder="Pays" required=""/>
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group">
+										<input type="text" th:field="*{city}" class="form-control" name="city" placeholder="Ville" required=""/>
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group">
+										<input type="number" th:field="*{postal}" class="form-control" name="postalcode" placeholder="Code Postal" required=""/>
+									</div>
+								</div>
+
+								<div class="center-content">
+									<div class="col-md-4"></div>
+									<input type="submit" value="COMMANDER" class="btn btn-lg"/>
+								</div>
+								<!--</div>-->
+							</form>
+						</div>
+					</div> <!-- End of messsage contant-->
+				</div>
+			</div>
+		</div>
+	</section>
 	
 		<footer id="footer" class="footer">
 			<div class="container">
