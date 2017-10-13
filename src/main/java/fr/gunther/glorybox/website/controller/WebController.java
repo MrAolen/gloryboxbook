@@ -16,7 +16,6 @@ public class WebController {
 
         @GetMapping("/")
         public ModelAndView displayMainPage() {
-
                 return new ModelAndView("index","commandForm", new FormCommandDTO());
         }
 
