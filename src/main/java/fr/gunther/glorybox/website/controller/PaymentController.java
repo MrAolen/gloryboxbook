@@ -5,6 +5,8 @@ import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
 import fr.gunther.glorybox.website.configuration.PaypalPaymentIntent;
 import fr.gunther.glorybox.website.configuration.PaypalPaymentMethod;
+import fr.gunther.glorybox.website.dto.FormCommandDTO;
+import fr.gunther.glorybox.website.service.EmailService;
 import fr.gunther.glorybox.website.service.PayPalService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,8 +16,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import fr.gunther.glorybox.website.util.URLUtils;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 
 // https://github.com/masasdani/paypal-springboot/tree/master/src/main/resources/templates
 
@@ -29,6 +33,15 @@ public class PaymentController {
 
     @Autowired
     private PayPalService paypalService;
+
+    @Autowired
+    private EmailService emailService;
+
+    @GetMapping("/mail")
+    public ModelAndView textMail() {
+        emailService.prepareAndSend("gunthernic@eisti.eu","gunthernic@eisti.eu","mail",new HashMap<>(),"registration-confirmation");
+        return new ModelAndView("index","commandForm", new FormCommandDTO());
+    }
 
     @GetMapping("/test")
     public String index(){
