@@ -3,17 +3,19 @@
 
 <head>
 
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="">
-	<meta name="author" content="">
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
 
 	<title>Glory Box Book</title>
 
-	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/half-slider.css" rel="stylesheet">
-	<link rel="stylesheet" href="social/dist/css/social-share-kit.css" type="text/css">
-	<link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
+	<link href="../vendor/bootstrap/css/bootstrap.min.css" th:href="@{../vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+	<link href="../css/half-slider.css" th:href="@{../css/half-slider.css}" rel="stylesheet" />
+	<!--<link href="../social/dist/css/social-share-kit.css" th:href="@{../social/dist/css/social-share-kit.css}" rel="stylesheet" type="text/css" />-->
+	<link href="../social/assets/css/font-awesome.css" th:href="@{../social/assets/css/font-awesome.css}" rel="stylesheet" type="text/css" />
+	<link href="../social/bootstrap-social.css" th:href="@{../social/bootstrap-social.css}" rel="stylesheet" type="text/css" />
+	<link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet" />
 
 </head>
 
@@ -63,22 +65,22 @@
 			</tr>
 		</table>
 		<p>
-		<h3 style="font-family: 'Dancing Script', cursive;">Qui sommes-nous ?</h5>
+		<h3 style="font-family: 'Dancing Script', cursive;">Qui sommes-nous ?</h3>
 			Des jeunes femmes passionnées et motivées qui veulent faire découvrir des lectures et mettre en avant un patrimoine littéraire souvent inconnu et sous estimé : des autrices, de tous pays et de toutes époques.
 		</p>
 		<br/>
 		<p>
-		<h3 style="font-family: 'Dancing Script', cursive;">A qui nous adressons-nous ?</h5>
+		<h3 style="font-family: 'Dancing Script', cursive;">A qui nous adressons-nous ?</h3>
 			A celles et à ceux, amoureux-ses des livres et curieux-ses de découvrir une littérature, souvent mise de côté et oubliée.
 		</p>
 		<br/>
 		<p>
-		<h3 style="font-family: 'Dancing Script', cursive;">Notre idée ?</h5>
+		<h3 style="font-family: 'Dancing Script', cursive;">Notre idée ?</h3>
 			Une box mensuelle autour d'autrices de talent avec des thématiques différentes chaque mois pour permettre un échange de culture au féminin.
 		</p>
 		<br/>
 		<p>
-		<h3 style="font-family: 'Dancing Script', cursive;">Quand ?</h5>
+		<h3 style="font-family: 'Dancing Script', cursive;">Quand ?</h3>
 			Lancement de la première box : le 25 Octobre 2017 spéciale halloween : autour des récits fantastiques horrifiques.
 		</p>
 	</div>
@@ -153,18 +155,21 @@
 		</table>
 
 		<p>
-			<a href="https://www.facebook.com/glorybookbox/" target="_blank" class="ssk ssk-facebook"></a>
-			<a href="" class="ssk ssk-twitter"></a>
-			<a href="" class="ssk ssk-google-plus"></a>
-			<a href="" >Email</a>
+			<a class="btn btn-social-icon btn-facebook" href="https://www.facebook.com/glorybookbox/" target="blank_">
+				<span class="fa fa-facebook" style="color:white;"></span>
+			</a>
+			<a class="btn btn-social-icon btn-instagram">
+				<span class="fa fa-instagram" style="color:white;"></span>
+			</a>
+			<span style="color:#E1BA46;font-size:18px;">Email : contact@gmail.com</span>
 		</p>
 	</div>
 </section>
 
 <!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/popper/popper.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendor/popper/popper.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
 
 </body>
 
