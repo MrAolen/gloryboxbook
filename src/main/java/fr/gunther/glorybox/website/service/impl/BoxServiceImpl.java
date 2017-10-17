@@ -27,4 +27,16 @@ public class BoxServiceImpl implements BoxService {
                 boxRepository.save(box);
                 return true;
         }
+
+        @Override
+        public String getDescriptionBox() {
+                Box box = boxRepository.findFirstByOrderByCreationDateDesc();
+                return box.getDescription();
+        }
+
+    @Override
+    public Float getPriceBox() {
+        Box box = boxRepository.findFirstByOrderByCreationDateDesc();
+        return box.getPrice();
+    }
 }

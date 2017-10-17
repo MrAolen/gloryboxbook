@@ -33,7 +33,7 @@ public class InitConfig {
 
         Box box = new Box();
         box.setCreationDate(new Date());
-        box.setDescription("Description de la box");
+        box.setDescription("Lancement de la première box : le 25 Octobre 2017 spéciale halloween : autour des récits fantastiques horrifiques.");
         box.setPrice(500.0F);
         boxRepository.save(box);
     }

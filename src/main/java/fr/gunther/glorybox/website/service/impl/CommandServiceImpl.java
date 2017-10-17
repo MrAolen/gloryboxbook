@@ -36,6 +36,7 @@ public class CommandServiceImpl implements CommandService {
         newCommand.setForname(form.getForname());
         newCommand.setName(form.getName());
         newCommand.setAddress(newAddress);
+        newCommand.setStatus(Command.Status.PENDING);
 
         newCommand = commandRepository.save(newCommand);
         return newCommand != null;

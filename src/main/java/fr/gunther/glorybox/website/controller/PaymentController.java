@@ -39,7 +39,7 @@ public class PaymentController {
 
     @GetMapping("/mail")
     public ModelAndView textMail() {
-        emailService.prepareAndSend("gunthernic@eisti.eu","gunthernic@eisti.eu","mail",new HashMap<>(),"registration-confirmation");
+        //emailService.prepareAndSend("gunthernic@eisti.eu","gunthernic@eisti.eu","mail",new HashMap<>(),"mail-command-confirmation");
         return new ModelAndView("index","commandForm", new FormCommandDTO());
     }
 
