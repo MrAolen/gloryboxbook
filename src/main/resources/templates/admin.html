@@ -35,7 +35,7 @@
                                     <th>
                                         <button type="button" class="btn btn-primary btn-sm">Détail</button>
                                         <button type="button" class="btn btn-danger btn-sm">Supprimer</button>
-                                        <button type="button" class="btn btn-success btn-sm">Valider</button>
+                                        <button type="button" class="btn btn-success btn-sm" th:onclick="'javascript:updateStatus(this,\'validate\',\''+${command.id}+'\');'">Valider</button>
                                     </th>
                                 </tr>
                             </tbody>
@@ -60,7 +60,7 @@
                                 <th>Action</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="body_validate">
                             <tr th:each="command : ${datas.validateCommands}">
                                 <th th:text="${command.id}">...</th>
                                 <th th:text="${command.name}">...</th>
@@ -200,6 +200,36 @@
                 }
             });
         });
+
+        function updateStatus(element,status,id) {
+            console.log("STATUS : " + status);
+            console.log("ID : " + id);
+            var data = {}
+            data["status"] = status;
+            data["id"] = id;
+
+            $.ajax({
+                type : "POST",
+                contentType : "application/json",
+                url : "http://localhost:8080/update/status",
+                data : JSON.stringify(data),
+                dataType : 'json',
+                timeout : 100000,
+                success : function(data) {
+                    console.log("SUCCESS: ", data);
+                    var button = $(element.closest(".btn-success"));
+                    button.text("Archiver");
+                    element.closest("tr").remove();
+                    $("#body_validate").append(element.closest("tr"));
+                },
+                error : function(e) {
+                    console.log("ERROR: ", e);
+                },
+                done : function(e) {
+                    console.log("DONE");
+                }
+            });
+        }
     </script>
 </body>
 </html>

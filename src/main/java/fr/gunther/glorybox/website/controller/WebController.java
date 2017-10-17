@@ -24,13 +24,13 @@ public class WebController {
         private BoxService boxService;
 
         @GetMapping("/")
-        public ModelAndView displayMainPage() {
+        public String displayMainPage(Model model) {
                 String description = boxService.getDescriptionBox();
                 Float price = boxService.getPriceBox();
-                IndexPageDTO info = new IndexPageDTO();
-                info.setDescription(description);
-                info.setPrice(price.toString() + " €");
-                return new ModelAndView("index","info", info);
+                model.addAttribute("description",description);
+                model.addAttribute("price",price.toString()+" €");
+                model.addAttribute("form",new FormCommandDTO());
+                return "index";
         }
 
         @PostMapping("/command")

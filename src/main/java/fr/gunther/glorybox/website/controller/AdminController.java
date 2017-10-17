@@ -35,7 +35,6 @@ public class AdminController {
     @GetMapping("/admin")
     public ModelAndView displayAdminPage() {
         AdminDTO adminDatas = adminService.getAdminDatas();
-
         return new ModelAndView("admin","datas",adminDatas);
     }
 

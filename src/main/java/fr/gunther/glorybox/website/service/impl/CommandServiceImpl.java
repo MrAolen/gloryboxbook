@@ -4,6 +4,7 @@ import fr.gunther.glorybox.website.dto.CommandDTO;
 import fr.gunther.glorybox.website.dto.FormCommandDTO;
 import fr.gunther.glorybox.website.entity.Address;
 import fr.gunther.glorybox.website.entity.Command;
+import fr.gunther.glorybox.website.entity.Command.Status;
 import fr.gunther.glorybox.website.repository.AddressRepository;
 import fr.gunther.glorybox.website.repository.CommandRepository;
 import fr.gunther.glorybox.website.service.CommandService;
@@ -55,5 +56,12 @@ public class CommandServiceImpl implements CommandService {
     @Override
     public List<CommandDTO> findAllValidateCommand() {
         return commandRepository.findByStatus(Command.Status.VALIDATE).stream().map(x -> x.toDto()).collect(Collectors.toList());
+    }
+
+    @Override
+    public void updateStatus(Status status, Long id) {
+        Command commandToUpdate = commandRepository.findOne(id);
+        commandToUpdate.setStatus(status);
+        commandRepository.save(commandToUpdate);
     }
 }

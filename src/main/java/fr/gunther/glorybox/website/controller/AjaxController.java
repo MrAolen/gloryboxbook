@@ -2,7 +2,11 @@ package fr.gunther.glorybox.website.controller;
 
 import fr.gunther.glorybox.website.dto.AjaxRequestDescriptionDTO;
 import fr.gunther.glorybox.website.dto.AjaxRequestPriceDTO;
+import fr.gunther.glorybox.website.dto.AjaxRequestStatusDTO;
+import fr.gunther.glorybox.website.entity.Command;
+import fr.gunther.glorybox.website.entity.Command.Status;
 import fr.gunther.glorybox.website.service.BoxService;
+import fr.gunther.glorybox.website.service.CommandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +22,9 @@ public class AjaxController {
     @Autowired
     private BoxService boxService;
 
+    @Autowired
+    private CommandService commandService;
+
     @ResponseBody
     @RequestMapping(value = "/update/description")
     public ResponseEntity<?> updateDescriptionBox(@RequestBody AjaxRequestDescriptionDTO request) {
@@ -29,6 +36,15 @@ public class AjaxController {
     @RequestMapping(value = "/update/price")
     public ResponseEntity<?> updatePriceBox(@RequestBody AjaxRequestPriceDTO request) {
         boxService.updatePrice(request.getPrice());
+        return ResponseEntity.ok(request);
+    }
+
+    @ResponseBody
+    @RequestMapping(value="/update/status")
+    public ResponseEntity<?> updateStatus(@RequestBody AjaxRequestStatusDTO request) {
+        if (request.getStatus().equals("validate")) {
+            commandService.updateStatus(Status.VALIDATE, Long.parseLong(request.getId()));
+        }
         return ResponseEntity.ok(request);
     }
 }
