@@ -16,5 +16,9 @@ public interface CommandService {
 
     List<CommandDTO> findAllValidateCommand();
 
-        void updateStatus(Status status, Long id);
+    void updateStatus(Status status, Long id);
+
+    void deleteCommand(Long id);
+
+    CommandDTO getDetailCommand(Long idCommand);
 }

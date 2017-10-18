@@ -1,6 +1,7 @@
 package fr.gunther.glorybox.website.controller;
 
 import fr.gunther.glorybox.website.dto.AdminDTO;
+import fr.gunther.glorybox.website.dto.CommandDTO;
 import fr.gunther.glorybox.website.entity.User;
 import fr.gunther.glorybox.website.service.AdminService;
 import fr.gunther.glorybox.website.service.CommandService;
@@ -27,6 +28,9 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
+    @Autowired
+    private CommandService commandService;
+
     @GetMapping("/login-admin")
     public ModelAndView displayLoginAdminPage(Model model) {
         return new ModelAndView("login-admin","userForm",new User());
@@ -41,5 +45,11 @@ public class AdminController {
     @GetMapping("/admin/detail/{idcommand}")
     public ModelAndView displayDetailPageCommand(@PathVariable("idcommand") Long idCommand) {
         return new ModelAndView("detail");
+    }
+
+    @GetMapping("/detail/{idcommand}")
+    public ModelAndView displayDetailPage(@PathVariable("idcommand") Long idCommand) {
+        CommandDTO command = commandService.getDetailCommand(idCommand);
+        return new ModelAndView("detail","command",command);
     }
 }

@@ -8,6 +8,7 @@ import fr.gunther.glorybox.website.entity.Command.Status;
 import fr.gunther.glorybox.website.repository.AddressRepository;
 import fr.gunther.glorybox.website.repository.CommandRepository;
 import fr.gunther.glorybox.website.service.CommandService;
+import fr.gunther.glorybox.website.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,12 +25,16 @@ public class CommandServiceImpl implements CommandService {
     @Autowired
     private AddressRepository addressRepository;
 
+    @Autowired
+    private EmailService emailService;
+
     @Override
     public boolean saveCommand(FormCommandDTO form) {
         Address address = new Address();
         address.setAddress(form.getAddress());
         address.setCity(form.getCity());
         address.setCountry(form.getCountry());
+        address.setPostal(form.getPostal());
         Address newAddress = addressRepository.save(address);
 
         Command newCommand = new Command();
@@ -63,5 +68,19 @@ public class CommandServiceImpl implements CommandService {
         Command commandToUpdate = commandRepository.findOne(id);
         commandToUpdate.setStatus(status);
         commandRepository.save(commandToUpdate);
+
+        if (status.equals(Status.VALIDATE)) {
+            emailService.sendCommandValidation(commandToUpdate.getEmail(),"link",commandToUpdate.getName(),commandToUpdate.getForname());
+        }
+    }
+
+    @Override
+    public void deleteCommand(Long id) {
+        commandRepository.delete(id);
+    }
+
+    @Override
+    public CommandDTO getDetailCommand(Long idCommand) {
+        return commandRepository.findOne(idCommand).toDto();
     }
 }
