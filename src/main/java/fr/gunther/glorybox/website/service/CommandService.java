@@ -21,4 +21,8 @@ public interface CommandService {
     void deleteCommand(Long id);
 
     CommandDTO getDetailCommand(Long idCommand);
+
+    void updateStatusToArchived(long id, String link);
+
+    void updateStatusToValidate(long id);
 }

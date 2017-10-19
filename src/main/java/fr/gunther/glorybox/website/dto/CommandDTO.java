@@ -8,6 +8,7 @@ public class CommandDTO {
     private String email;
     private String name;
     private String forname;
+    private String link;
     private AddressDTO address;
     private Command.Status status;
 
@@ -57,6 +58,14 @@ public class CommandDTO {
 
     public void setAddress(AddressDTO address) {
         this.address = address;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 }
 

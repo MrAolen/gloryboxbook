@@ -51,6 +51,11 @@
                             Code postal : <span th:text="${command.address.postal}">...</span>
                         </div>
                     </div>
+                    <div class="row" th:if="${command.link} != null">
+                        <div class="col-md-12">
+                            Lien : <span th:text="${command.link}">...</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

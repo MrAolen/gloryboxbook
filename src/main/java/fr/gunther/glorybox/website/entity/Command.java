@@ -25,6 +25,9 @@ public class Command {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @Column(name="link")
+    private String link;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_address")
     private Address address;
@@ -77,6 +80,14 @@ public class Command {
         this.address = address;
     }
 
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
     public CommandDTO toDto() {
         CommandDTO command = new CommandDTO();
         command.setEmail(this.email);
@@ -85,6 +96,7 @@ public class Command {
         command.setAddress(this.address.toDto());
         command.setId(this.id);
         command.setStatus(this.status);
+        command.setLink(this.link);
         return command;
     }
 

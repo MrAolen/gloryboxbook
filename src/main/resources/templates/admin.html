@@ -39,7 +39,7 @@
                                     <th>
                                         <a role="button" class="btn btn-primary btn-sm" th:href="@{'/detail/' + ${command.id}}">Détail</a>
                                         <button type="button" class="btn btn-danger btn-sm" th:onclick="'javascript:deleteCommand(this,\''+${command.id}+'\');'">Supprimer</button>
-                                        <button type="button" class="btn btn-success btn-sm" th:onclick="'javascript:updateStatus(this,\'validate\',\''+${command.id}+'\');'">Valider</button>
+                                        <button type="button" class="btn btn-success btn-sm" th:onclick="'javascript:updateStatusToValidate(this,\''+${command.id}+'\');'">Valider</button>
                                     </th>
                                 </tr>
                             </tbody>
@@ -73,35 +73,29 @@
                                 <th>
                                     <a role="button" class="btn btn-primary btn-sm" th:href="@{'/detail/' + ${command.id}}">Détail</a>
                                     <button type="button" class="btn btn-danger btn-sm" th:onclick="'javascript:deleteCommand(this,\''+${command.id}+'\');'">Supprimer</button>
-                                    <button type="button" id="archiver" class="btn btn-success btn-sm">Archiver</button>
+                                    <button type="button" th:id="'archivedButton'+${command.id}" class="btn btn-success btn-sm" data-toggle="modal" th:attr="data-target='#archivedDialog'+${command.id}">Archiver</button>
 
                                     <div class="modal fade" tabindex="-1" th:id="'archivedDialog'+${command.id}" role="dialog" aria-labelledby="copycourse" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <button type="button" class="close">&times;</button>
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                     <h4 class="modal-title">Lien pour la livraison</h4>
                                                 </div>
                                                 <div class="modal-body">
                                                         <div class="row">
                                                             <div class="form-group col-md-12">
-                                                                <input type="text" class="form-control" name="email" placeholder="Lien de livraison" required=""/>
+                                                                <input th:id="'input_link'+${command.id}" type="text" class="form-control" name="email" placeholder="Lien de livraison" required=""/>
                                                             </div>
                                                         </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" th:onclick="'javascript:updateStatus(this,\'archived\',\''+${command.id}+'\');'">Valider</button>
-                                                    <button type="button" class="btn btn-default">Fermer</button>
+                                                    <button type="button" class="btn btn-default" th:onclick="'javascript:updateStatusToArchived(this,\''+${command.id}+'\');'">Valider</button>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <script th:inline="javascript">
-                                             $("#archiver").click(function(){
-                                                $("#archivedDialog1").modal("show");
-                                              });
-                                    </script>
                                 </th>
                             </tr>
                             </tbody>
@@ -128,16 +122,16 @@
                                 </tr>
                                 </thead>
                                 <tbody id="body_archived">
-                                <tr th:each="command : ${datas.archiveCommands}">
-                                    <th th:text="${command.id}">...</th>
-                                    <th th:text="${command.name}">...</th>
-                                    <th th:text="${command.forname}">...</th>
-                                    <th th:text="${command.email}">...</th>
-                                    <th>
-                                        <a role="button" class="btn btn-primary btn-sm" th:href="@{'/detail/' + ${command.id}}">Détail</a>
-                                        <button type="button" class="btn btn-danger btn-sm" th:onclick="'javascript:deleteCommand(this,\''+${command.id}+'\');'">Supprimer</button>
-                                    </th>
-                                </tr>
+                                    <tr th:each="command : ${datas.archiveCommands}">
+                                        <th th:text="${command.id}">...</th>
+                                        <th th:text="${command.name}">...</th>
+                                        <th th:text="${command.forname}">...</th>
+                                        <th th:text="${command.email}">...</th>
+                                        <th>
+                                            <a role="button" class="btn btn-primary btn-sm" th:href="@{'/detail/' + ${command.id}}">Détail</a>
+                                            <button type="button" class="btn btn-danger btn-sm" th:onclick="'javascript:deleteCommand(this,\''+${command.id}+'\');'">Supprimer</button>
+                                        </th>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -233,39 +227,63 @@
             });
         });
 
-        function updateStatus(element,status,id) {
+        function updateStatusToValidate(element,id) {
             var data = {}
-            data["status"] = status;
             data["id"] = id;
 
             $.ajax({
                 type : "POST",
                 contentType : "application/json",
-                url : "http://localhost:8080/update/status",
+                url : "http://localhost:8080/update/status/validate",
+                data : JSON.stringify(data),
+                dataType : 'json',
+                timeout : 100000,
+                success : function(data) {
+                     console.log("SUCCESS: ", data);
+                     var button = $(element).closest(".btn-success");
+                     button.text("Archiver");
+                     button.unbind('click');
+                     button.attr('onClick','updateStatus(this,\'archived\','+id+')');
+                     button.attr('data-toggle','modal');
+                     button.attr('id','archivedButton'+id);
+                     button.attr('data-target',"#archivedDialog"+id);
+                     element.closest("tr").remove();
+                     var tr = element.closest("tr");
+
+                     $("#body_validate").append(tr);
+                        location.reload();
+                },
+                error : function(e) {
+                    console.log("ERROR: ", e);
+                },
+                done : function(e) {
+                    console.log("DONE");
+                }
+            });
+        }
+
+        function updateStatusToArchived(element,id) {
+            var data = {}
+            data["id"] = id;
+            data["link"] = $("#input_link"+id).val();
+
+            $.ajax({
+                type : "POST",
+                contentType : "application/json",
+                url : "http://localhost:8080/update/status/archived",
                 data : JSON.stringify(data),
                 dataType : 'json',
                 timeout : 100000,
                 success : function(data) {
                     console.log("SUCCESS: ", data);
-                    if (status=="validate") {
-                        var button = $(element).closest(".btn-success");
-                        button.text("Archiver");
-                        button.unbind('click');
-                        button.attr('onClick','updateStatus(this,\'archived\','+id+')');
-                        element.closest("tr").remove();
-                        $("#body_validate").append(element.closest("tr"));
-                    }
-                    if (status=="archived") {
-                        var button = $(element).parents("tr").closest("#archiver");
-                        console.log(button);
-                        var tr = $(element).closest("tr");
-                        $(element).closest("tr").remove();
-                        $("#body_archived").append(tr);
-                        button.remove();
-                        $('#archivedDialog1').remove();
-                        $("body").removeClass("modal-open");
-                        $('.modal-backdrop').remove();
-                    }
+                    var button = $("#archivedButton"+id);
+                    var tr = $(element).closest("tr");
+                    $(element).closest("tr").remove();
+                    $("#body_archived").append(tr);
+                    button.remove();
+                    $('#archivedDialog1').remove();
+                    $("body").removeClass("modal-open");
+                    $('.modal-backdrop').remove();
                 },
                 error : function(e) {
                     console.log("ERROR: ", e);

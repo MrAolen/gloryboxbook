@@ -83,4 +83,20 @@ public class CommandServiceImpl implements CommandService {
     public CommandDTO getDetailCommand(Long idCommand) {
         return commandRepository.findOne(idCommand).toDto();
     }
+
+    @Override
+    public void updateStatusToArchived(long id, String link) {
+        Command commandToUpdate = commandRepository.findOne(id);
+        commandToUpdate.setStatus(Status.ARCHIVED);
+        commandToUpdate.setLink(link);
+        commandRepository.save(commandToUpdate);
+    }
+
+    @Override
+    public void updateStatusToValidate(long id) {
+        Command commandToUpdate = commandRepository.findOne(id);
+        commandToUpdate.setStatus(Status.VALIDATE);
+        commandRepository.save(commandToUpdate);
+        emailService.sendCommandValidation(commandToUpdate.getEmail(),"link",commandToUpdate.getName(),commandToUpdate.getForname());
+    }
 }
