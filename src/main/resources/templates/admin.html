@@ -4,8 +4,12 @@
     <meta charset="UTF-8"/>
     <title>Admin - Glory Box Book</title>
 
-    <link href="../vendor/bootstrap/css/bootstrap.min.css" th:href="@{../vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" th:href="@{../vendor/bootstrap/css/bootstrap.css}" rel="stylesheet" />
     <link href="../css/half-slider.css" th:href="@{../css/half-slider.css}" rel="stylesheet" />
+
+    <script type="text/javascript" th:src="@{/vendor/jquery/jquery.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.min.js }"></script>
 
 </head>
 <body>
@@ -69,13 +73,13 @@
                                 <th>
                                     <a role="button" class="btn btn-primary btn-sm" th:href="@{'/detail/' + ${command.id}}">Détail</a>
                                     <button type="button" class="btn btn-danger btn-sm" th:onclick="'javascript:deleteCommand(this,\''+${command.id}+'\');'">Supprimer</button>
-                                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" th:attr="data-target='#archivedDialog'+${command.id }">Archiver</button>
+                                    <button type="button" id="archiver" class="btn btn-success btn-sm">Archiver</button>
 
-                                    <div class="modal fade" th:id="'archivedDialog'+${command.id}" role="dialog">
+                                    <div class="modal fade" tabindex="-1" th:id="'archivedDialog'+${command.id}" role="dialog" aria-labelledby="copycourse" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <button type="button" class="close">&times;</button>
                                                     <h4 class="modal-title">Lien pour la livraison</h4>
                                                 </div>
                                                 <div class="modal-body">
@@ -87,11 +91,17 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-default" th:onclick="'javascript:updateStatus(this,\'archived\',\''+${command.id}+'\');'">Valider</button>
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                                                    <button type="button" class="btn btn-default">Fermer</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
+                                    <script th:inline="javascript">
+                                             $("#archiver").click(function(){
+                                                $("#archivedDialog1").modal("show");
+                                              });
+                                    </script>
                                 </th>
                             </tr>
                             </tbody>
@@ -170,11 +180,9 @@
         </div>
     </div>
 
-    <script type="text/javascript" th:src="@{/vendor/jquery/jquery.js}"></script>
-    <script th:src="@{/vendor/boostrap/js/bootstrap.min.js }"></script>
-
 
     <script type="text/javascript">
+
         $("#btn_description").click(function() {
             var data = {}
             data["description"] = $("#description").val();
@@ -239,8 +247,8 @@
                 timeout : 100000,
                 success : function(data) {
                     console.log("SUCCESS: ", data);
-                    var button = $(element).closest(".btn-success");
                     if (status=="validate") {
+                        var button = $(element).closest(".btn-success");
                         button.text("Archiver");
                         button.unbind('click');
                         button.attr('onClick','updateStatus(this,\'archived\','+id+')');
@@ -248,11 +256,13 @@
                         $("#body_validate").append(element.closest("tr"));
                     }
                     if (status=="archived") {
+                        var button = $(element).parents("tr").closest("#archiver");
+                        console.log(button);
                         var tr = $(element).closest("tr");
                         $(element).closest("tr").remove();
                         $("#body_archived").append(tr);
                         button.remove();
-                        $('#archivedDialog1').modal({show: false});
+                        $('#archivedDialog1').remove();
                         $("body").removeClass("modal-open");
                         $('.modal-backdrop').remove();
                     }
@@ -292,6 +302,7 @@
                 });
             }
         }
+
     </script>
 </body>
 </html>
