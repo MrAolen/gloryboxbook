@@ -12,8 +12,8 @@ public class Box {
     @Column(name="id")
     private Long id;
 
-    @Column(name="description")
-    private String description;
+    @Column(name="name")
+    private String name;
 
     @Column(name="price")
     private Float price;
@@ -29,12 +29,12 @@ public class Box {
         this.id = id;
     }
 
-    public String getDescription() {
-        return description;
+    public String getName() {
+        return name;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setName(String description) {
+        this.name = description;
     }
 
     public Float getPrice() {

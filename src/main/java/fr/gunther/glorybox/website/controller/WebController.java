@@ -27,9 +27,11 @@ public class WebController {
         public String displayMainPage(Model model) {
                 String description = boxService.getDescriptionBox();
                 Float price = boxService.getPriceBox();
+                List<BoxDTO> boxes = n
                 model.addAttribute("description",description);
                 model.addAttribute("price",price.toString()+" €");
                 model.addAttribute("form",new FormCommandDTO());
+                model.addAttribute("boxes",)
                 return "index";
         }
 
