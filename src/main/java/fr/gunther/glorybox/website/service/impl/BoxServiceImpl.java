@@ -44,4 +44,9 @@ public class BoxServiceImpl implements BoxService {
                 box.setName(name);
                 return boxRepository.save(box).toDto();
         }
+
+        @Override
+        public void deleteBox(String id) {
+                boxRepository.delete(Long.parseLong(id));
+        }
 }

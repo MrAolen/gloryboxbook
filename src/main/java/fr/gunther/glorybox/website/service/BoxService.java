@@ -10,4 +10,6 @@ public interface BoxService {
     Float getPriceBox();
     List<BoxDTO> getAvailableBoxes();
     BoxDTO createBox(String name, String price, Date creationDate);
+
+    void deleteBox(String id);
 }

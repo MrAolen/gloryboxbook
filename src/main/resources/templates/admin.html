@@ -270,7 +270,7 @@
         });
 
         $("#button_create_box").click(function() {
-            var data = {}
+            var data = {};
             data["name"] = $("#input_create_box_name").val();
             data["price"] = $("#input_create_box_price").val();
 
@@ -288,7 +288,7 @@
                         "<th>"+data["name"]+"</th>"+
                         "<th>"+data["price"]+"</th>"+
                         "<th>"+data["creationDate"]+"</th>"+
-                        '<th><button type="button" class="btn btn-danger btn-sm">Supprimer</button></th>'+
+                        '<th><button type="button" class="btn btn-danger btn-sm" onclick="deleteBox(this,'+data["id"]+')">Supprimer</button></th>'+
                         "</tr>");
                     $('#create_box').remove();
                     $("body").removeClass("modal-open");
@@ -302,6 +302,30 @@
                 }
             });
         });
+
+        function deleteBox(element,id) {
+            var data = {};
+            data["id"] = id;
+
+            $.ajax({
+                type : "POST",
+                contentType : "application/json",
+                url : "http://localhost:8080/delete/box",
+                data : JSON.stringify(data),
+                dataType : 'json',
+                timeout : 100000,
+                success : function(data) {
+                     console.log("SUCCESS: ", data);
+                    $(element).closest("tr").remove();
+                },
+                error : function(e) {
+                    console.log("ERROR: ", e);
+                },
+                done : function(e) {
+                    console.log("DONE");
+                }
+            });
+        }
 
         function updateStatusToValidate(element,id) {
             var data = {}

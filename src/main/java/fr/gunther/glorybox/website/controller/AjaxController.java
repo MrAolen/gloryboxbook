@@ -73,4 +73,11 @@ public class AjaxController {
         request.setCreationDate(now.format(formatter));
         return ResponseEntity.ok(request);
     }
+
+    @ResponseBody
+    @RequestMapping(value="/delete/box")
+    public ResponseEntity<?> DeleteBox(@RequestBody AjaxRequestDeleteDTO request) {
+        boxService.deleteBox(request.getId());
+        return ResponseEntity.ok(request);
+    }
 }
