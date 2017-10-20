@@ -5,7 +5,7 @@ import java.util.Date;
 public class BoxDTO {
 
     private Long id;
-    private String description;
+    private String name;
     private Float price;
     private Date creationDate;
 
@@ -17,12 +17,12 @@ public class BoxDTO {
         this.id = id;
     }
 
-    public String getDescription() {
-        return description;
+    public String getName() {
+        return name;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setName(String description) {
+        this.name = description;
     }
 
     public Float getPrice() {

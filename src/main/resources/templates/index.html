@@ -84,9 +84,13 @@
 			<div th:text="${description}">...</div>
 		</p>
 		<br/>
-		<p>
 		<h3 style="font-family: 'Dancing Script', cursive;">Le prix ?</h3>
-		<div th:text="${price}">...</div>
+		<p th:each="box : ${boxes}">
+			<div class="row">
+				<div class="col-md-12">
+					<span th:text="${box.name}">...</span> : <span th:text="${box.price}">...</span>
+				</div>
+			</div>
 		</p>
 	</div>
 </section>
@@ -136,6 +140,13 @@
 					<div class="row">
 						<div class="form-group col-md-12">
 							<input type="text" th:field="*{postal}" class="form-control" name="postalcode" placeholder="Code Postal" required=""/>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-md-12">
+							<select th:field="*{box}" class="form-control">
+								<option th:each="box : ${boxes}" th:value="${box.id}"><div th:text="${box.name}">...</div></option>
+							</select>
 						</div>
 					</div>
 					<div class="center-content">

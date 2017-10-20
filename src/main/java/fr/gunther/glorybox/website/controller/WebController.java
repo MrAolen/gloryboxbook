@@ -1,15 +1,19 @@
 package fr.gunther.glorybox.website.controller;
 
+import fr.gunther.glorybox.website.dto.BoxDTO;
 import fr.gunther.glorybox.website.dto.FormCommandDTO;
 import fr.gunther.glorybox.website.dto.IndexPageDTO;
 import fr.gunther.glorybox.website.service.BoxService;
 import fr.gunther.glorybox.website.service.CommandService;
 import fr.gunther.glorybox.website.service.EmailService;
+import fr.gunther.glorybox.website.service.StaticDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 public class WebController {
@@ -23,15 +27,16 @@ public class WebController {
         @Autowired
         private BoxService boxService;
 
+        @Autowired
+        private StaticDataService staticDataService;
+
         @GetMapping("/")
         public String displayMainPage(Model model) {
-                String description = boxService.getDescriptionBox();
-                Float price = boxService.getPriceBox();
-                List<BoxDTO> boxes = n
+                String description = staticDataService.getValueByKey("description");
+
                 model.addAttribute("description",description);
-                model.addAttribute("price",price.toString()+" €");
                 model.addAttribute("form",new FormCommandDTO());
-                model.addAttribute("boxes",)
+                model.addAttribute("boxes",boxService.getAvailableBoxes());
                 return "index";
         }
 

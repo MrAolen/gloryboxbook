@@ -7,6 +7,7 @@ import fr.gunther.glorybox.website.dto.AjaxRequestStatusArchivedDTO;
 import fr.gunther.glorybox.website.dto.AjaxRequestStatusValidateDTO;
 import fr.gunther.glorybox.website.service.BoxService;
 import fr.gunther.glorybox.website.service.CommandService;
+import fr.gunther.glorybox.website.service.StaticDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,10 +24,13 @@ public class AjaxController {
     @Autowired
     private CommandService commandService;
 
+    @Autowired
+    private StaticDataService staticDataService;
+
     @ResponseBody
     @RequestMapping(value = "/update/description")
     public ResponseEntity<?> updateDescriptionBox(@RequestBody AjaxRequestDescriptionDTO request) {
-        boxService.updateDescription(request.getDescription());
+        staticDataService.updateByKey("description",request.getDescription());
         return ResponseEntity.ok(request);
     }
 

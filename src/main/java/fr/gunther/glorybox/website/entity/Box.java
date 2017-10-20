@@ -1,5 +1,7 @@
 package fr.gunther.glorybox.website.entity;
 
+import fr.gunther.glorybox.website.dto.BoxDTO;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -51,5 +53,14 @@ public class Box {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public BoxDTO toDto() {
+        BoxDTO box = new BoxDTO();
+        box.setCreationDate(this.creationDate);
+        box.setName(this.name);
+        box.setId(this.id);
+        box.setPrice(this.price);
+        return box;
     }
 }

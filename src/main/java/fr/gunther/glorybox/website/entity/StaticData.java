@@ -2,15 +2,17 @@ package fr.gunther.glorybox.website.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Table
-@Entity(name="box")
+@Entity(name="staticdata")
 public class StaticData {
         @Column(name="label")
         private String label;
 
         @Column(name="key")
+        @Id
         private String key;
 
         public String getLabel() {

@@ -1,8 +1,10 @@
 package fr.gunther.glorybox.website.configuration;
 
 import fr.gunther.glorybox.website.entity.Box;
+import fr.gunther.glorybox.website.entity.StaticData;
 import fr.gunther.glorybox.website.entity.User;
 import fr.gunther.glorybox.website.repository.BoxRepository;
+import fr.gunther.glorybox.website.repository.StaticDataRepository;
 import fr.gunther.glorybox.website.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +21,9 @@ public class InitConfig {
 
     @Autowired
     private BoxRepository boxRepository;
+
+    @Autowired
+    private StaticDataRepository staticDataRepository;
 
     @PostConstruct
     public void initData() {
@@ -42,6 +47,11 @@ public class InitConfig {
         box2.setName("Petite Box");
         box2.setPrice(12.5F);
         boxRepository.save(box2);
+
+        StaticData staticData = new StaticData();
+        staticData.setLabel("description oiahefahzfpef");
+        staticData.setKey("description");
+        staticDataRepository.save(staticData);
     }
 
 }

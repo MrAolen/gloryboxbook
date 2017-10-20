@@ -6,7 +6,9 @@ import fr.gunther.glorybox.website.entity.Address;
 import fr.gunther.glorybox.website.entity.Command;
 import fr.gunther.glorybox.website.entity.Command.Status;
 import fr.gunther.glorybox.website.repository.AddressRepository;
+import fr.gunther.glorybox.website.repository.BoxRepository;
 import fr.gunther.glorybox.website.repository.CommandRepository;
+import fr.gunther.glorybox.website.service.BoxService;
 import fr.gunther.glorybox.website.service.CommandService;
 import fr.gunther.glorybox.website.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,9 @@ public class CommandServiceImpl implements CommandService {
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private BoxRepository boxRepository;
+
     @Override
     public boolean saveCommand(FormCommandDTO form) {
         Address address = new Address();
@@ -43,6 +48,7 @@ public class CommandServiceImpl implements CommandService {
         newCommand.setName(form.getName());
         newCommand.setAddress(newAddress);
         newCommand.setStatus(Command.Status.PENDING);
+        newCommand.setBox(boxRepository.findOne(Long.parseLong(form.getBox())));
 
         newCommand = commandRepository.save(newCommand);
         return newCommand != null;

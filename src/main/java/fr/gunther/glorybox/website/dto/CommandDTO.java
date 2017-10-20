@@ -11,6 +11,15 @@ public class CommandDTO {
     private String link;
     private AddressDTO address;
     private Command.Status status;
+    private BoxDTO box;
+
+    public BoxDTO getBox() {
+        return box;
+    }
+
+    public void setBox(BoxDTO box) {
+        this.box = box;
+    }
 
     public Long getId() {
         return id;

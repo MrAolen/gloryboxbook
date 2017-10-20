@@ -1,10 +1,12 @@
 package fr.gunther.glorybox.website.service;
 
+import fr.gunther.glorybox.website.dto.BoxDTO;
+
+import java.util.List;
+
 public interface BoxService {
 
-        boolean updateDescription(String description);
         boolean updatePrice(String price);
-        String getDescriptionBox();
-
-    Float getPriceBox();
+        Float getPriceBox();
+        List<BoxDTO> getAvailableBoxes();
 }

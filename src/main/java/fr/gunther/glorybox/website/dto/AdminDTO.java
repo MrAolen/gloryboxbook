@@ -7,7 +7,15 @@ public class AdminDTO {
     private List<CommandDTO> validateCommands;
     private List<CommandDTO> pendingCommands;
     private String description;
-    private Float price;
+    private List<BoxDTO> boxes;
+
+    public List<BoxDTO> getBoxes() {
+        return boxes;
+    }
+
+    public void setBoxes(List<BoxDTO> boxes) {
+        this.boxes = boxes;
+    }
 
     public List<CommandDTO> getArchiveCommands() {
         return archiveCommands;
@@ -39,13 +47,5 @@ public class AdminDTO {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Float getPrice() {
-        return price;
-    }
-
-    public void setPrice(Float price) {
-        this.price = price;
     }
 }

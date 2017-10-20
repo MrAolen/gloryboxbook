@@ -10,6 +10,17 @@ public class FormCommandDTO {
     private String postal;
     private String country;
 
+    public String getBox() {
+        return box;
+    }
+
+    public void setBox(String box) {
+        this.box = box;
+    }
+
+    private String box;
+
+
     public String getCountry() {
         return country;
     }
