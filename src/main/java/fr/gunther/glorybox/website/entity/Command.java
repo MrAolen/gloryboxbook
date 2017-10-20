@@ -3,6 +3,7 @@ package fr.gunther.glorybox.website.entity;
 import fr.gunther.glorybox.website.dto.CommandDTO;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Table
 @Entity(name="command")
@@ -28,6 +29,9 @@ public class Command {
     @Column(name="link")
     private String link;
 
+    @Column(name="creation_date")
+    private Date creationDate;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_box")
     private Box box;
@@ -35,6 +39,14 @@ public class Command {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_address")
     private Address address;
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
 
     public Box getBox() {
         return box;
@@ -109,6 +121,7 @@ public class Command {
         command.setId(this.id);
         command.setStatus(this.status);
         command.setLink(this.link);
+        command.setCreationDate(this.creationDate);
         command.setBox(this.box.toDto());
         return command;
     }

@@ -2,6 +2,8 @@ package fr.gunther.glorybox.website.dto;
 
 import fr.gunther.glorybox.website.entity.Command;
 
+import java.util.Date;
+
 public class CommandDTO {
 
     private Long id;
@@ -11,7 +13,16 @@ public class CommandDTO {
     private String link;
     private AddressDTO address;
     private Command.Status status;
+    private Date creationDate;
     private BoxDTO box;
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
 
     public BoxDTO getBox() {
         return box;

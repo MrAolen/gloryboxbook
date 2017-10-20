@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,6 +48,7 @@ public class CommandServiceImpl implements CommandService {
         newCommand.setForname(form.getForname());
         newCommand.setName(form.getName());
         newCommand.setAddress(newAddress);
+        newCommand.setCreationDate(new Date());
         newCommand.setStatus(Command.Status.PENDING);
         newCommand.setBox(boxRepository.findOne(Long.parseLong(form.getBox())));
 
