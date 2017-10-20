@@ -7,6 +7,7 @@ import fr.gunther.glorybox.website.service.BoxService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,5 +34,14 @@ public class BoxServiceImpl implements BoxService {
         @Override
         public List<BoxDTO> getAvailableBoxes() {
                 return boxRepository.findAll().stream().map(x -> x.toDto()).collect(Collectors.toList());
+        }
+
+        @Override
+        public BoxDTO createBox(String name, String price, Date creationDate) {
+                Box box = new Box();
+                box.setPrice(Float.parseFloat(price));
+                box.setCreationDate(creationDate);
+                box.setName(name);
+                return boxRepository.save(box).toDto();
         }
 }

@@ -6,10 +6,12 @@
 
     <link href="../vendor/bootstrap/css/bootstrap.min.css" th:href="@{../vendor/bootstrap/css/bootstrap.css}" rel="stylesheet" />
     <link href="../css/half-slider.css" th:href="@{../css/half-slider.css}" rel="stylesheet" />
+    <link href="../vendor/fontawesome/css/font-awesome.min.css" th:href="@{../vendor/fontawesome/css/font-awesome.min.css}" rel="stylesheet" />
 
     <script type="text/javascript" th:src="@{/vendor/jquery/jquery.js}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script th:src="@{/vendor/bootstrap/js/bootstrap.min.js }"></script>
+
 
 </head>
 <body>
@@ -171,7 +173,45 @@
         <div class="row" style="margin-top:20px;">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Les Boxes</div>
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-11">
+                                Les Boxes
+                            </div>
+                            <div class="col-md-1">
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#create_box">
+                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                </button>
+
+                                <div class="modal fade" tabindex="-1" id="create_box" role="dialog" aria-labelledby="copycourse" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    <h4 class="modal-title">Lien pour la livraison</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="form-group col-md-12">
+                                                            <input id="input_create_box_name" type="text" class="form-control" name="name" placeholder="Nom de la box" required=""/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group col-md-12">
+                                                            <input id="input_create_box_price" type="number" class="form-control" name="price" placeholder="Prix de la box" required=""/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" id="button_create_box">Valider</button>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card-block">
                         <table class="table table-striped">
                             <thead>
@@ -190,7 +230,6 @@
                                 <th th:text="${box.price}">...</th>
                                 <th th:text="${box.creationDate}">...</th>
                                 <th>
-                                    <a role="button" class="btn btn-primary btn-sm" th:href="@{'/detail/' + ${box.id}}">Détail</a>
                                     <button type="button" class="btn btn-danger btn-sm" th:onclick="'javascript:deleteCommand(this,\''+${box.id}+'\');'">Supprimer</button>
                                 </th>
                             </tr>
@@ -220,6 +259,40 @@
                     console.log("SUCCESS: ", data);
                     $("#current_description").text($("#description").val());
                     $("#description").val("");
+                },
+                error : function(e) {
+                    console.log("ERROR: ", e);
+                },
+                done : function(e) {
+                    console.log("DONE");
+                }
+            });
+        });
+
+        $("#button_create_box").click(function() {
+            var data = {}
+            data["name"] = $("#input_create_box_name").val();
+            data["price"] = $("#input_create_box_price").val();
+
+            $.ajax({
+                type : "POST",
+                contentType : "application/json",
+                url : "http://localhost:8080/create/box",
+                data : JSON.stringify(data),
+                dataType : 'json',
+                timeout : 100000,
+                success : function(data) {
+                    console.log("SUCCESS: ", data);
+                    $("#body_box").append("<tr>"+
+                        "<th>"+data["id"]+"</th>"+
+                        "<th>"+data["name"]+"</th>"+
+                        "<th>"+data["price"]+"</th>"+
+                        "<th>"+data["creationDate"]+"</th>"+
+                        '<th><button type="button" class="btn btn-danger btn-sm">Supprimer</button></th>'+
+                        "</tr>");
+                    $('#create_box').remove();
+                    $("body").removeClass("modal-open");
+                    $('.modal-backdrop').remove();
                 },
                 error : function(e) {
                     console.log("ERROR: ", e);
@@ -284,7 +357,7 @@
                     $(element).closest("tr").remove();
                     $("#body_archived").append(tr);
                     button.remove();
-                    $('#archivedDialog1').remove();
+                    $('#archivedDialog'+id).remove();
                     $("body").removeClass("modal-open");
                     $('.modal-backdrop').remove();
                 },

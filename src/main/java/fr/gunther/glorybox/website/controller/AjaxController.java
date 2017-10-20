@@ -1,10 +1,6 @@
 package fr.gunther.glorybox.website.controller;
 
-import fr.gunther.glorybox.website.dto.AjaxRequestDeleteDTO;
-import fr.gunther.glorybox.website.dto.AjaxRequestDescriptionDTO;
-import fr.gunther.glorybox.website.dto.AjaxRequestPriceDTO;
-import fr.gunther.glorybox.website.dto.AjaxRequestStatusArchivedDTO;
-import fr.gunther.glorybox.website.dto.AjaxRequestStatusValidateDTO;
+import fr.gunther.glorybox.website.dto.*;
 import fr.gunther.glorybox.website.service.BoxService;
 import fr.gunther.glorybox.website.service.CommandService;
 import fr.gunther.glorybox.website.service.StaticDataService;
@@ -14,6 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 @Controller
 public class AjaxController {
@@ -59,6 +60,17 @@ public class AjaxController {
     @RequestMapping(value="/delete")
     public ResponseEntity<?> deleteCommand(@RequestBody AjaxRequestDeleteDTO request) {
         commandService.deleteCommand(Long.parseLong(request.getId()));
+        return ResponseEntity.ok(request);
+    }
+
+    @ResponseBody
+    @RequestMapping(value="/create/box")
+    public ResponseEntity<?> createBox(@RequestBody AjaxRequestCreateBoxDTO request) {
+        BoxDTO box = boxService.createBox(request.getName(), request.getPrice(), new Date());
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        request.setId(box.getId().toString());
+        request.setCreationDate(now.format(formatter));
         return ResponseEntity.ok(request);
     }
 }
