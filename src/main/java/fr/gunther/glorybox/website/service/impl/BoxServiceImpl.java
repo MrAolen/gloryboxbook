@@ -26,8 +26,8 @@ public class BoxServiceImpl implements BoxService {
         }
 
         @Override
-        public Float getPriceBox() {
-                Box box = boxRepository.findFirstByOrderByCreationDateDesc();
+        public Float getPriceBox(Long idBox) {
+                Box box = boxRepository.findOne(idBox);
                 return box.getPrice();
         }
 

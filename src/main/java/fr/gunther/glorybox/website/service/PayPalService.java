@@ -6,13 +6,13 @@ import fr.gunther.glorybox.website.configuration.PaypalPaymentIntent;
 import fr.gunther.glorybox.website.configuration.PaypalPaymentMethod;
 
 public interface PayPalService {
-    Payment createPayment(Double total,
+    Payment createPayment(Float total,
                                  String currency,
                                  PaypalPaymentMethod method,
                                  PaypalPaymentIntent intent,
                                  String description,
                                  String cancelUrl,
-                                 String successUrl) throws PayPalRESTException;
+                                 String successUrl, Long idcommand) throws PayPalRESTException;
 
     Payment executePayment(String paymentId, String payerId) throws PayPalRESTException;
 }

@@ -35,7 +35,7 @@ public class CommandServiceImpl implements CommandService {
     private BoxRepository boxRepository;
 
     @Override
-    public boolean saveCommand(FormCommandDTO form) {
+    public Long saveCommand(FormCommandDTO form) {
         Address address = new Address();
         address.setAddress(form.getAddress());
         address.setCity(form.getCity());
@@ -53,7 +53,7 @@ public class CommandServiceImpl implements CommandService {
         newCommand.setBox(boxRepository.findOne(Long.parseLong(form.getBox())));
 
         newCommand = commandRepository.save(newCommand);
-        return newCommand != null;
+        return newCommand.getId();
     }
 
     @Override

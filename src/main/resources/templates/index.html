@@ -49,11 +49,25 @@
 	</div>
 </nav>
 
-<div>
-	<img src="img/bg.jpg"/>
+<div class="col-md-12" style="margin : 60px auto 0"  th:if="${error} != ''">
+	<div class="alert alert-danger">
+		<div class="row">
+			<strong>Erreur : </strong> <div th:text="${error}">...</div>
+		</div>
+	</div>
 </div>
 
+<div class="col-md-12" style="margin : 60px auto 0"  th:if="${info} != ''">
+	<div class="alert alert-success">
+		<div class="row">
+			<strong>Réussite : </strong> <div th:text="${info}">...</div>
+		</div>
+	</div>
+</div>
 
+<div class="row">
+	<img src="img/bg.jpg"/>
+</div>
 <!-- Page Content -->
 <section class="py-5" id="section_about">
 	<div class="container"  style="text-align: center;">

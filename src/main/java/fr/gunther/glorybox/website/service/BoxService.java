@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface BoxService {
     boolean updatePrice(String price);
-    Float getPriceBox();
+    Float getPriceBox(Long id);
     List<BoxDTO> getAvailableBoxes();
     BoxDTO createBox(String name, String price, Date creationDate);
 

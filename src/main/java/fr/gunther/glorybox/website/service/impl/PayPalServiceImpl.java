@@ -19,13 +19,14 @@ public class PayPalServiceImpl implements PayPalService {
     private APIContext apiContext;
 
     public Payment createPayment(
-            Double total,
+            Float total,
             String currency,
             PaypalPaymentMethod method,
             PaypalPaymentIntent intent,
             String description,
             String cancelUrl,
-            String successUrl) throws PayPalRESTException {
+            String successUrl,
+            Long idcommand) throws PayPalRESTException {
         Amount amount = new Amount();
         amount.setCurrency(currency);
         amount.setTotal(String.format("%.2f", total).replace(",","."));
@@ -48,6 +49,8 @@ public class PayPalServiceImpl implements PayPalService {
         redirectUrls.setCancelUrl(cancelUrl);
         redirectUrls.setReturnUrl(successUrl);
         payment.setRedirectUrls(redirectUrls);
+        payment.getRedirectUrls().setCancelUrl(payment.getRedirectUrls().getCancelUrl()+"?idcommand"+idcommand);
+        payment.getRedirectUrls().setReturnUrl(payment.getRedirectUrls().getReturnUrl()+"?idcommand="+idcommand);
 
         return payment.create(apiContext);
     }

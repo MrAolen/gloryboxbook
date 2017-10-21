@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CommandService {
 
-    boolean saveCommand(FormCommandDTO form);
+    Long saveCommand(FormCommandDTO form);
 
     List<CommandDTO> findAllPendingCommand();
 

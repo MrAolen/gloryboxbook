@@ -9,6 +9,7 @@ public class FormCommandDTO {
     private String city;
     private String postal;
     private String country;
+    private String box;
 
     public String getBox() {
         return box;
@@ -17,9 +18,6 @@ public class FormCommandDTO {
     public void setBox(String box) {
         this.box = box;
     }
-
-    private String box;
-
 
     public String getCountry() {
         return country;
