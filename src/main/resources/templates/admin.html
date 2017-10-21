@@ -288,11 +288,12 @@
                         "<th>"+data["name"]+"</th>"+
                         "<th>"+data["price"]+"</th>"+
                         "<th>"+data["creationDate"]+"</th>"+
-                        '<th><button type="button" class="btn btn-danger btn-sm" onclick="deleteBox(this,'+data["id"]+')">Supprimer</button></th>'+
+                        '<th><button type="button" class="btn btn-danger btn-sm" onclick="deleteBox(this,'+data['id']+')">Supprimer</button></th>'+
                         "</tr>");
                     $('#create_box').remove();
                     $("body").removeClass("modal-open");
                     $('.modal-backdrop').remove();
+                    location.reload();
                 },
                 error : function(e) {
                     console.log("ERROR: ", e);
