@@ -1,9 +1,11 @@
 package fr.gunther.glorybox.website.configuration;
 
 import fr.gunther.glorybox.website.entity.Box;
+import fr.gunther.glorybox.website.entity.CountryDelivery;
 import fr.gunther.glorybox.website.entity.StaticData;
 import fr.gunther.glorybox.website.entity.User;
 import fr.gunther.glorybox.website.repository.BoxRepository;
+import fr.gunther.glorybox.website.repository.CountryDeliveryRepository;
 import fr.gunther.glorybox.website.repository.StaticDataRepository;
 import fr.gunther.glorybox.website.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public class InitConfig {
 
     @Autowired
     private StaticDataRepository staticDataRepository;
+
+    @Autowired
+    private CountryDeliveryRepository countryDeliveryRepository;
 
     @PostConstruct
     public void initData() {
@@ -52,6 +57,31 @@ public class InitConfig {
         staticData.setLabel("description oiahefahzfpef");
         staticData.setKey("description");
         staticDataRepository.save(staticData);
+
+        CountryDelivery france = new CountryDelivery();
+        france.setCountry("France");
+        france.setPrice(0F);
+        countryDeliveryRepository.save(france);
+
+        CountryDelivery outre_mer_france = new CountryDelivery();
+        outre_mer_france.setCountry("France Outre Mer");
+        outre_mer_france.setPrice(0F);
+        countryDeliveryRepository.save(outre_mer_france);
+
+        CountryDelivery canada = new CountryDelivery();
+        canada.setCountry("Canada");
+        canada.setPrice(0F);
+        countryDeliveryRepository.save(canada);
+
+        CountryDelivery belgique = new CountryDelivery();
+        belgique.setCountry("Belgique");
+        belgique.setPrice(0F);
+        countryDeliveryRepository.save(belgique);
+
+        CountryDelivery luxembourg = new CountryDelivery();
+        luxembourg.setCountry("Luxembourg");
+        luxembourg.setPrice(0F);
+        countryDeliveryRepository.save(luxembourg);
     }
 
 }

@@ -5,12 +5,11 @@ import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
 import fr.gunther.glorybox.website.configuration.PaypalPaymentIntent;
 import fr.gunther.glorybox.website.configuration.PaypalPaymentMethod;
-import fr.gunther.glorybox.website.dto.BoxDTO;
 import fr.gunther.glorybox.website.dto.CommandDTO;
 import fr.gunther.glorybox.website.dto.FormCommandDTO;
-import fr.gunther.glorybox.website.dto.IndexPageDTO;
 import fr.gunther.glorybox.website.service.BoxService;
 import fr.gunther.glorybox.website.service.CommandService;
+import fr.gunther.glorybox.website.service.CountryDeliveryService;
 import fr.gunther.glorybox.website.service.EmailService;
 import fr.gunther.glorybox.website.service.PayPalService;
 import fr.gunther.glorybox.website.service.StaticDataService;
@@ -22,9 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -45,6 +42,9 @@ public class WebController {
         @Autowired
         private PayPalService paypalService;
 
+        @Autowired
+        private CountryDeliveryService countryDeliveryService;
+
         private Logger log = LoggerFactory.getLogger(getClass());
 
         @GetMapping("/")
@@ -53,6 +53,7 @@ public class WebController {
                 model.addAttribute("description",description);
                 model.addAttribute("form",new FormCommandDTO());
                 model.addAttribute("boxes",boxService.getAvailableBoxes());
+                model.addAttribute("countries", countryDeliveryService.getAllCountryDelivery());
                 model.addAttribute("error",error);
                 model.addAttribute("info",info);
                 return "index";

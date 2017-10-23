@@ -143,7 +143,9 @@
 					</div>
 					<div class="row">
 						<div class="form-group col-md-12">
-							<input type="text" th:field="*{country}" class="form-control" name="country" placeholder="Pays" required=""/>
+							<select class="form-control" th:field="*{country}">
+								<option th:value="${country.id}" th:each="country : ${countries}" th:text="${country.country}">...</option>
+							</select>
 						</div>
 					</div>
 					<div class="row">
