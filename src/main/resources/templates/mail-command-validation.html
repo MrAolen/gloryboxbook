@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Demystifying Email Design</title>
@@ -20,7 +20,7 @@
                             </tr>
                             <tr>
                                 <td style="padding: 20px 0 30px 0; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;">
-                                    Bonjour <span>Prénom</span> <span>Nom</span>,
+                                    Bonjour <span th:text="${forname}"}>Prénom</span> <span th:text="${name}">Nom</span>,
                                 </td>
                             </tr>
                             <tr>
@@ -30,7 +30,7 @@
                             </tr>
                             <tr>
                                 <td style="padding: 20px 0 30px 0; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;">
-                                    <a href="#">lien</a>
+                                    <a th:href="${link}">lien</a>
                                 </td>
                             </tr>
                             <tr>

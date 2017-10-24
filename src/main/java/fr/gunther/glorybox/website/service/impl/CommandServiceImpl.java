@@ -100,6 +100,7 @@ public class CommandServiceImpl implements CommandService {
         commandToUpdate.setStatus(Status.ARCHIVED);
         commandToUpdate.setLink(link);
         commandRepository.save(commandToUpdate);
+        emailService.sendCommandValidation(commandToUpdate.getEmail(),link,commandToUpdate.getName(),commandToUpdate.getForname());
     }
 
     @Override
@@ -107,6 +108,5 @@ public class CommandServiceImpl implements CommandService {
         Command commandToUpdate = commandRepository.findOne(id);
         commandToUpdate.setStatus(Status.VALIDATE);
         commandRepository.save(commandToUpdate);
-        emailService.sendCommandValidation(commandToUpdate.getEmail(),"link",commandToUpdate.getName(),commandToUpdate.getForname());
     }
 }
