@@ -1,6 +1,7 @@
 package fr.gunther.glorybox.website.service.impl;
 
 import fr.gunther.glorybox.website.dto.CountryDeliveryDTO;
+import fr.gunther.glorybox.website.entity.CountryDelivery;
 import fr.gunther.glorybox.website.repository.CountryDeliveryRepository;
 import fr.gunther.glorybox.website.service.CountryDeliveryService;
 import java.util.List;
@@ -23,5 +24,17 @@ public class CountryDeliveryServiceImpl implements CountryDeliveryService {
         @Override
         public String findById(Long id) {
                 return countryDeliveryRepository.findOne(id).getCountry();
+        }
+
+        @Override
+        public Float getPriceByCountryId(Long id) {
+                return countryDeliveryRepository.findOne(id).getPrice();
+        }
+
+        @Override
+        public void updatePrice(Float price, Long idcountry) {
+                CountryDelivery countryDelivery = countryDeliveryRepository.findOne(idcountry);
+                countryDelivery.setPrice(price);
+                countryDeliveryRepository.save(countryDelivery);
         }
 }

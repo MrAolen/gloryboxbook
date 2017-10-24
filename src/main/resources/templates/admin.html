@@ -239,10 +239,79 @@
                 </div>
             </div>
         </div>
+
+    <div class="row" style="margin-top:20px;">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">Prix de livraisons</div>
+                <div class="card-block">
+                    <table class="table">
+                        <tr>
+                            <td>France : </td>
+                            <td><div class="row"><div id="td_price_france" th:text="${datas.priceFrance}"></div> €</div></td>
+                            <td><input type="number" id="price_france"/></td>
+                            <td><button type="button" onclick="changePrice('price_france','1');" >Modifier</button></td>
+                        </tr>
+                        <tr>
+                            <td>Canada : </td>
+                            <td><div class="row"><div  id="td_price_canada" th:text="${datas.priceCanada}"></div> €</div></td>
+                            <td><input type="number" id="price_canada"/></td>
+                            <td><button type="button" onclick="changePrice('price_canada','3');">Modifier</button></td>
+                        </tr>
+                        <tr>
+                            <td>France outre mer : </td>
+                            <td><div class="row"><div  id="td_price_outre_mer" th:text="${datas.priceOutreMer}"></div> €</div></td>
+                            <td><input type="number" id="price_outre_mer"/></td>
+                            <td><button type="button" onclick="changePrice('price_outre_mer','2');">Modifier</button></td>
+                        </tr>
+                        <tr>
+                            <td>Belgique : </td>
+                            <td><div class="row"><div id="td_price_belgique"  th:text="${datas.priceBelgique}"></div> €</div></td>
+                            <td><input type="number" id="price_belgique"/></td>
+                            <td><button type="button" onclick="changePrice('price_belgique','4');">Modifier</button></td>
+                        </tr>
+                        <tr>
+                            <td>Luxembourg : </td>
+                            <td><div class="row"><div id="td_price_luxembourg" th:text="${datas.priceLuxembourg}"></div> €</div></td>
+                            <td><input type="number" id="price_luxembourg"/></td>
+                            <td><button type="button" onclick="changePrice('price_luxembourg','5');">Modifier</button></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 
+    </div>
 
     <script type="text/javascript">
+	var url = window.location.href
+	var arr = url.split("/");
+	var domain = arr[0] + "//" + arr[2];
+
+        function changePrice(idInput,idCountry) {
+            var data = {}
+            data["price"] = $("#"+idInput).val();
+
+            $.ajax({
+                type : "POST",
+                contentType : "application/json",
+                url : domain+"/update/price/"+idCountry,
+                data : JSON.stringify(data),
+                dataType : 'json',
+                timeout : 100000,
+                success : function(data) {
+                    console.log("SUCCESS: ", data);
+                    $("#td_"+idInput).text(data.price);
+                },
+                error : function(e) {
+                    console.log("ERROR: ", e);
+                },
+                done : function(e) {
+                    console.log("DONE");
+                }
+            });
+        }
 
         $("#btn_description").click(function() {
             var data = {}
@@ -251,7 +320,7 @@
             $.ajax({
                 type : "POST",
                 contentType : "application/json",
-                url : "https://glorybookbox.herokuapp.com/update/description",
+                url : domain+"/update/description",
                 data : JSON.stringify(data),
                 dataType : 'json',
                 timeout : 100000,
@@ -277,7 +346,7 @@
             $.ajax({
                 type : "POST",
                 contentType : "application/json",
-                url : "https://glorybookbox.herokuapp.com/create/box",
+                url : domain+"/create/box",
                 data : JSON.stringify(data),
                 dataType : 'json',
                 timeout : 100000,
@@ -311,7 +380,7 @@
             $.ajax({
                 type : "POST",
                 contentType : "application/json",
-                url : "https://glorybookbox.herokuapp.com/delete/box",
+                url : domain+"/delete/box",
                 data : JSON.stringify(data),
                 dataType : 'json',
                 timeout : 100000,
@@ -335,7 +404,7 @@
             $.ajax({
                 type : "POST",
                 contentType : "application/json",
-                url : "https://glorybookbox.herokuapp.com/update/status/validate",
+                url : domain+"/update/status/validate",
                 data : JSON.stringify(data),
                 dataType : 'json',
                 timeout : 100000,
@@ -371,7 +440,7 @@
             $.ajax({
                 type : "POST",
                 contentType : "application/json",
-                url : "https://glorybookbox.herokuapp.com/update/status/archived",
+                url : domain+"/update/status/archived",
                 data : JSON.stringify(data),
                 dataType : 'json',
                 timeout : 100000,
@@ -404,7 +473,7 @@
                 $.ajax({
                     type : "POST",
                     contentType : "application/json",
-                    url : "https://glorybookbox.herokuapp.com/delete",
+                    url : domain+"/delete",
                     data : JSON.stringify(data),
                     dataType : 'json',
                     timeout : 100000,

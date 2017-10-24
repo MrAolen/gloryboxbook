@@ -66,7 +66,7 @@ public class WebController {
                 String cancelUrl = URLUtils.getBaseURl(request)  + "/pay/cancel";
                 String successUrl = URLUtils.getBaseURl(request) + "/pay/success";
                 try {
-                        Payment payment = paypalService.createPayment(getTotalPrice(commandForm.getBox()),"EUR", PaypalPaymentMethod.paypal,
+                        Payment payment = paypalService.createPayment(getTotalPrice(commandForm),"EUR", PaypalPaymentMethod.paypal,
                                 PaypalPaymentIntent.sale,"Payment Glory Book Box - " + commandForm.getName() + " - " + commandForm.getForname(),cancelUrl,successUrl,idcommand);
                         for(Links links : payment.getLinks()){
                                 if(links.getRel().equals("approval_url")){
@@ -105,7 +105,7 @@ public class WebController {
                 redir.addFlashAttribute("error", "Erreur lors du paiement veuillez réessayer ou contacter l'administrateur.");
                 return "redirect:/";        }
 
-        private Float getTotalPrice(String idbox) {
-                return boxService.getPriceBox(Long.parseLong(idbox)) + 4.70F;
+        private Float getTotalPrice(FormCommandDTO form) {
+                return boxService.getPriceBox(Long.parseLong(form.getBox())) + countryDeliveryService.getPriceByCountryId(Long.parseLong(form.getCountry()));
         }
 }

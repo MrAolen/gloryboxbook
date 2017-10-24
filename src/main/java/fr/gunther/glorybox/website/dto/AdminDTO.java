@@ -8,6 +8,51 @@ public class AdminDTO {
     private List<CommandDTO> pendingCommands;
     private String description;
     private List<BoxDTO> boxes;
+    private Float priceFrance;
+    private Float priceCanada;
+    private Float priceLuxembourg;
+    private Float priceOutreMer;
+    private Float priceBelgique;
+
+    public Float getPriceFrance() {
+        return priceFrance;
+    }
+
+    public void setPriceFrance(Float priceFrance) {
+        this.priceFrance = priceFrance;
+    }
+
+    public Float getPriceCanada() {
+        return priceCanada;
+    }
+
+    public void setPriceCanada(Float priceCanada) {
+        this.priceCanada = priceCanada;
+    }
+
+    public Float getPriceLuxembourg() {
+        return priceLuxembourg;
+    }
+
+    public void setPriceLuxembourg(Float priceLuxembourg) {
+        this.priceLuxembourg = priceLuxembourg;
+    }
+
+    public Float getPriceOutreMer() {
+        return priceOutreMer;
+    }
+
+    public void setPriceOutreMer(Float priceOutreMer) {
+        this.priceOutreMer = priceOutreMer;
+    }
+
+    public Float getPriceBelgique() {
+        return priceBelgique;
+    }
+
+    public void setPriceBelgique(Float priceBelgique) {
+        this.priceBelgique = priceBelgique;
+    }
 
     public List<BoxDTO> getBoxes() {
         return boxes;

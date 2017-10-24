@@ -3,12 +3,15 @@ package fr.gunther.glorybox.website.controller;
 import fr.gunther.glorybox.website.dto.*;
 import fr.gunther.glorybox.website.service.BoxService;
 import fr.gunther.glorybox.website.service.CommandService;
+import fr.gunther.glorybox.website.service.CountryDeliveryService;
 import fr.gunther.glorybox.website.service.StaticDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.SimpleDateFormat;
@@ -27,6 +30,9 @@ public class AjaxController {
 
     @Autowired
     private StaticDataService staticDataService;
+
+    @Autowired
+    private CountryDeliveryService countryDeliveryService;
 
     @ResponseBody
     @RequestMapping(value = "/update/description")
@@ -76,8 +82,33 @@ public class AjaxController {
 
     @ResponseBody
     @RequestMapping(value="/delete/box")
-    public ResponseEntity<?> DeleteBox(@RequestBody AjaxRequestDeleteDTO request) {
+    public ResponseEntity<?> deleteBox(@RequestBody AjaxRequestDeleteDTO request) {
         boxService.deleteBox(request.getId());
+        return ResponseEntity.ok(request);
+    }
+
+    @ResponseBody
+    @RequestMapping(value="/price/country/{idcountry}")
+    public ResponseEntity<?> getPriceCountryDelivery(@PathVariable("idcountry") Long idcountry) {
+        Float price = countryDeliveryService.getPriceByCountryId(idcountry);
+        AjaxResponsePriceCountry response = new AjaxResponsePriceCountry();
+        response.setPrice(price);
+        return ResponseEntity.ok(response);
+    }
+
+    @ResponseBody
+    @RequestMapping(value="/price/box/{idbox}")
+    public ResponseEntity<?> getPriceBox(@PathVariable("idbox") Long idbox) {
+        Float price = boxService.getPriceBox(idbox);
+        AjaxResponsePriceCountry response = new AjaxResponsePriceCountry();
+        response.setPrice(price);
+        return ResponseEntity.ok(response);
+    }
+
+    @ResponseBody
+    @RequestMapping(value="/update/price/{idcountry}")
+    public ResponseEntity<?> getPriceBox(@RequestBody AjaxResponsePriceCountry request,@PathVariable("idcountry") Long idcountry) {
+        countryDeliveryService.updatePrice(request.getPrice(), idcountry);
         return ResponseEntity.ok(request);
     }
 }

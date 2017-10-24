@@ -143,7 +143,7 @@
 					</div>
 					<div class="row">
 						<div class="form-group col-md-12">
-							<select class="form-control" th:field="*{country}">
+							<select class="form-control" th:field="*{country}" id="country">
 								<option th:value="${country.id}" th:each="country : ${countries}" th:text="${country.country}">...</option>
 							</select>
 						</div>
@@ -160,10 +160,22 @@
 					</div>
 					<div class="row">
 						<div class="form-group col-md-12">
-							<select th:field="*{box}" class="form-control">
+							<select th:field="*{box}" class="form-control" id="box">
 								<option th:each="box : ${boxes}" th:value="${box.id}"><div th:text="${box.name}">...</div></option>
 							</select>
 						</div>
+					</div>
+					<div class="row" style="text-align:center">
+						<div class="col-md-6">Frais de port :</div>
+						<div class="col-md-6"><span id="div_fdp"><span th:text="${countries[0].price}"></span></span> €</div>
+					</div>
+					<div class="row" style="text-align:center">
+						<div class="col-md-6">Prix de la box :</div>
+						<div class="col-md-6"><span id="div_box"><span th:text="${boxes[0].price}"></span></span> €</div>
+					</div>
+					<div class="row" style="text-align:center">
+						<div class="col-md-6">Total :</div>
+						<div class="col-md-6"><span id="div_total"><span th:text="${boxes[0].price + countries[0].price}"></span></span> €</div>
 					</div>
 					<div class="center-content">
 						<div class="col-md-4"></div>
@@ -202,6 +214,58 @@
 <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
 <script th:src="@{/vendor/popper/popper.min.js}"></script>
 <script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+
+<script type="text/javascript">
+	var url = window.location.href
+	var arr = url.split("/");
+	var domain = arr[0] + "//" + arr[2];
+
+$( "#country" ).change(function() {
+	var idLocationDelivery = $('#country').find(":selected").attr("value");
+
+	$.ajax({
+		type : "POST",
+    contentType : "application/json",
+    url : domain+"/price/country/"+idLocationDelivery,
+    dataType : 'json',
+    timeout : 100000,
+    success : function(data) {
+    	console.log("SUCCESS: ", data);
+    	$("#div_fdp").text(data.price);
+    	$("#div_total").text(parseFloat($("#div_fdp").text()) + parseFloat($("#div_box").text()));
+    },
+    error : function(e) {
+    	console.log("ERROR: ", e);
+    },
+    done : function(e) {
+    	console.log("DONE");
+    }
+  });
+});
+
+$( "#box" ).change(function() {
+	var idBoxSelected = $('#box').find(":selected").attr("value");
+
+	$.ajax({
+		type : "POST",
+    contentType : "application/json",
+    url : domain+"/price/box/"+idBoxSelected,
+    dataType : 'json',
+    timeout : 100000,
+    success : function(data) {
+    	console.log("SUCCESS: ", data);
+    	$("#div_box").text(data.price);
+    	$("#div_total").text(parseFloat($("#div_fdp").text()) + parseFloat($("#div_box").text()));
+    },
+    error : function(e) {
+    	console.log("ERROR: ", e);
+    },
+    done : function(e) {
+    	console.log("DONE");
+    }
+  });
+});
+</script>
 
 </body>
 

@@ -7,4 +7,8 @@ public interface CountryDeliveryService {
         List<CountryDeliveryDTO> getAllCountryDelivery();
 
         String findById(Long id);
+
+        Float getPriceByCountryId(Long id);
+
+        void updatePrice(Float price, Long idcountry);
 }

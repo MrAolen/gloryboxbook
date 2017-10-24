@@ -60,27 +60,27 @@ public class InitConfig {
 
         CountryDelivery france = new CountryDelivery();
         france.setCountry("France");
-        france.setPrice(0F);
+        france.setPrice(55F);
         countryDeliveryRepository.save(france);
 
         CountryDelivery outre_mer_france = new CountryDelivery();
         outre_mer_france.setCountry("France Outre Mer");
-        outre_mer_france.setPrice(0F);
+        outre_mer_france.setPrice(60F);
         countryDeliveryRepository.save(outre_mer_france);
 
         CountryDelivery canada = new CountryDelivery();
         canada.setCountry("Canada");
-        canada.setPrice(0F);
+        canada.setPrice(65F);
         countryDeliveryRepository.save(canada);
 
         CountryDelivery belgique = new CountryDelivery();
         belgique.setCountry("Belgique");
-        belgique.setPrice(0F);
+        belgique.setPrice(70F);
         countryDeliveryRepository.save(belgique);
 
         CountryDelivery luxembourg = new CountryDelivery();
         luxembourg.setCountry("Luxembourg");
-        luxembourg.setPrice(0F);
+        luxembourg.setPrice(75F);
         countryDeliveryRepository.save(luxembourg);
     }
 
