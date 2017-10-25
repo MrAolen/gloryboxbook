@@ -82,6 +82,11 @@ public class InitConfig {
         luxembourg.setCountry("Luxembourg");
         luxembourg.setPrice(75F);
         countryDeliveryRepository.save(luxembourg);
+
+	CountryDelivery depot = new CountryDelivery();
+        outre_mer_france.setCountry("Depot");
+        outre_mer_france.setPrice(0F);
+        countryDeliveryRepository.save(depot);
     }
 
 }
