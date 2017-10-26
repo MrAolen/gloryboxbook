@@ -32,7 +32,7 @@ public class InitConfig {
 
     @PostConstruct
     public void initData() {
-        /*BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String hashedPassword = passwordEncoder.encode("password");
 
         User user = new User();
@@ -54,39 +54,39 @@ public class InitConfig {
         boxRepository.save(box2);
 
         StaticData staticData = new StaticData();
-        staticData.setLabel("description oiahefahzfpef");
+        staticData.setLabel("Lancement de la première box : le 25 Octobre 2017 spécial halloween : autour des récits fantastiques horrifiques.");
         staticData.setKey("description");
         staticDataRepository.save(staticData);
 
         CountryDelivery france = new CountryDelivery();
         france.setCountry("France");
-        france.setPrice(55F);
+        france.setPrice(4.7F);
         countryDeliveryRepository.save(france);
 
         CountryDelivery outre_mer_france = new CountryDelivery();
         outre_mer_france.setCountry("France Outre Mer");
-        outre_mer_france.setPrice(60F);
+        outre_mer_france.setPrice(23.3F);
         countryDeliveryRepository.save(outre_mer_france);
 
         CountryDelivery canada = new CountryDelivery();
         canada.setCountry("Canada");
-        canada.setPrice(65F);
+        canada.setPrice(23.3F);
         countryDeliveryRepository.save(canada);
 
         CountryDelivery belgique = new CountryDelivery();
         belgique.setCountry("Belgique");
-        belgique.setPrice(70F);
+        belgique.setPrice(14.7F);
         countryDeliveryRepository.save(belgique);
 
         CountryDelivery luxembourg = new CountryDelivery();
         luxembourg.setCountry("Luxembourg");
-        luxembourg.setPrice(75F);
+        luxembourg.setPrice(14.7F);
         countryDeliveryRepository.save(luxembourg);
 
 	    CountryDelivery depot = new CountryDelivery();
         depot.setCountry("Au Depot");
         depot.setPrice(0F);
-        countryDeliveryRepository.save(depot);*/
+        countryDeliveryRepository.save(depot);
     }
 
 }
