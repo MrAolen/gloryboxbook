@@ -32,7 +32,7 @@ public class InitConfig {
 
     @PostConstruct
     public void initData() {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        /*BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String hashedPassword = passwordEncoder.encode("password");
 
         User user = new User();
@@ -86,7 +86,7 @@ public class InitConfig {
 	    CountryDelivery depot = new CountryDelivery();
         depot.setCountry("Au Depot");
         depot.setPrice(0F);
-        countryDeliveryRepository.save(depot);
+        countryDeliveryRepository.save(depot);*/
     }
 
 }
