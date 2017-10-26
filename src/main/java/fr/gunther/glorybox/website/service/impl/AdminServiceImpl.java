@@ -35,11 +35,11 @@ public class AdminServiceImpl implements AdminService {
         admin.setValidateCommands(commandService.findAllValidateCommand());
         admin.setBoxes(boxService.getAvailableBoxes());
         admin.setDescription(staticDataService.getValueByKey("description"));
-        admin.setPriceBelgique(countryDeliveryRepository.findOne((long) 4).getPrice());
+        /*admin.setPriceBelgique(countryDeliveryRepository.findOne((long) 4).getPrice());
         admin.setPriceCanada(countryDeliveryRepository.findOne((long) 3).getPrice());
         admin.setPriceFrance(countryDeliveryRepository.findOne((long) 1).getPrice());
         admin.setPriceLuxembourg(countryDeliveryRepository.findOne((long) 5).getPrice());
-        admin.setPriceOutreMer(countryDeliveryRepository.findOne((long) 2).getPrice());
+        admin.setPriceOutreMer(countryDeliveryRepository.findOne((long) 2).getPrice());*/
         return admin;
     }
 }
